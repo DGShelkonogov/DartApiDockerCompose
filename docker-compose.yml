@@ -1,0 +1,25 @@
+version: '3'
+
+services: 
+  api:
+    build: ./api
+    ports:
+      - 8888:8888
+    depends_on:
+      - postgresql
+    restart: always
+    entrypoint: ["bash", "start.sh"]
+
+  postgresql:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=333
+      - POSTGRES_DB=Conduit
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - 5431:5432
+
+volumes:
+  postgres_data:
